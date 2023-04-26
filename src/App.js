@@ -63,6 +63,7 @@ class InputForm extends Component {
         this.setState({ prediction: data.data.attributes.decision });
         // create a new instance of the Prediction model from the Mongoose schema
         const predictionData = {
+          name: this.state.name,
           temperature: this.state.temperature,
           age: this.state.age,
           gender: this.state.gender,
@@ -76,7 +77,7 @@ class InputForm extends Component {
         };
     
         // save the prediction instance to the database
-        fetch('/api/predictions', {
+        fetch('https://api.up2tom.com/v3/decision/58d3bcf97c6b1644db73ad12', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -103,6 +104,11 @@ class InputForm extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
+        <label>
+          Name:
+          <input type="text" name="name" value={this.state.name} onChange={this.handleChange} />
+        </label>
+        <br />
         <label>
           Age?:
           <input type="number" name="age" value={this.state.age} onChange={this.handleChange} />
